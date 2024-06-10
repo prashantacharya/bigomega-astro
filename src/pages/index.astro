@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import { getAllPosts } from "../lib/client";
+
+const data = await getAllPosts();
+const allPosts = data.publication.posts.edges;
+
+allPosts.forEach((post) =>
+  console.log(post.node.coverImage?.url, post.node.title)
+);
+---
+
+<Layout title="Posts">
+  <ul class="cards">
+    {
+      allPosts.map((post) => (
+        <Card
+          title={post.node.title}
+          body={post.node.content?.html}
+          href={`/post/${post.node.slug}`}
+        />
+      ))
+    }
+  </ul>
+</Layout>
+
+<style>
+  .cards {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+</style>
