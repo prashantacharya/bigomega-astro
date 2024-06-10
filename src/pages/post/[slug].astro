@@ -16,20 +16,50 @@ const post = await getPost(slug);
 ---
 
 <Layout title={post.title}>
-  <img src={post.coverImage?.url || ""} alt={post.title} />
+  <div class="blog">
+    <img src={post.coverImage?.url || ""} alt={post.title} />
 
-  <h1>{post.title}</h1>
-  <p>{post.readTimeInMinutes} min read</p>
+    <h1>{post.title}</h1>
+    <p>{post.readTimeInMinutes} min read</p>
 
-  <div set:html={post.content.html} />
+    <div class="hashnode-content" set:html={post.content.html} />
+  </div>
 </Layout>
 
-<style>
-  * {
+<style></style>
+
+<style is:global>
+  .blog {
     color: white;
   }
 
-  div a {
-    color: red;
+  .hashnode-content a {
+    color: #8c71f7;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hashnode-content a:hover {
+    background-color: #8c71f7;
+    color: #fff;
+  }
+
+  .hashnode-content p {
+    margin: 30px 0;
+    line-height: 200%;
+    margin-left: 10px;
+  }
+
+  .hashnode-content code {
+    display: inline-block;
+    background-color: #21292d;
+    padding: 3px 5px;
+  }
+
+  .hashnode-content .lang-plaintext {
+    margin-left: 40px;
+    background-color: #21292d;
+    display: block;
+    padding: 20px;
   }
 </style>
